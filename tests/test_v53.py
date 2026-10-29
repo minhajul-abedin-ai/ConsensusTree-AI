@@ -70,12 +70,12 @@ class DecisionStudio53Tests(unittest.TestCase):
             source.write_text(json.dumps(self.report))
             write_dashboard(source, output)
             self.assertTrue(output.exists())
-            self.assertIn('Test locally.', output.read_text())
+            self.assertIn('Test locally.', output.read_text(encoding='utf-8'))
 
     def test_quickstart_still_works_offline(self):
         with tempfile.TemporaryDirectory() as tmp:
             self.assertEqual(main(['quickstart', '--dir', tmp]), 0)
-            self.assertIn('Decision Studio', (Path(tmp) / 'sample.html').read_text())
+            self.assertIn('Decision Studio', (Path(tmp) / 'sample.html').read_text(encoding='utf-8'))
             self.assertTrue(json.loads((Path(tmp) / 'sample.json').read_text())['demo'])
 
     def test_showcase_fixture_is_disclosed(self):

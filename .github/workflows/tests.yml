@@ -38,5 +38,5 @@ jobs:
           consensustree studio --help
           python -m compileall -q scripts
           python -c "from pathlib import Path; assert Path('examples/interactive_showcase.html').stat().st_size > 0"
-      - name: Build distribution (offline)
-        run: python -m pip wheel --no-build-isolation --no-deps --no-index -w build-wheel .
+      - name: Build distribution
+        run: python -m pip wheel --no-deps -w build-wheel .

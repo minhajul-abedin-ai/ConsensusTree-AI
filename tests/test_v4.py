@@ -27,7 +27,7 @@ class Version4Tests(unittest.TestCase):
             report.write_text(json.dumps({"mode":"ask","task":"Demo","agents":[]}))
             dest=Path(d)/"out.html"
             self.assertEqual(main(["dashboard",str(report),"--output",str(dest)]),0)
-            self.assertIn("Decision Studio",dest.read_text())
+            self.assertIn("Decision Studio",dest.read_text(encoding="utf-8"))
 
     def test_request_budget_enforced(self):
         client=MeteredClient(Fixture(),max_calls=1)

@@ -91,6 +91,21 @@ def _safe_parts(relative: Path) -> bool:
     )
 
 
+def _blocked_parent_path(parent: Path) -> bool:
+    """Check selected-file ancestors without treating macOS's /private alias as user data.
+
+    macOS resolves common temporary paths such as /var/... to /private/var/....
+    The system-level ``private`` component is not a project directory; continue
+    checking every component beneath it so user-created sensitive directories
+    remain blocked.
+    """
+    parts = parent.parts
+    if (len(parts) > 2 and parts[0] == os.sep and parts[1].casefold() == "private"
+            and parts[2].casefold() in {"var", "tmp"}):
+        parts = (parts[0], *parts[2:])
+    return any(_blocked_component(part) for part in parts)
+
+
 def _sensitive(path: Path) -> bool:
     name = path.name.casefold()
     if name.startswith(".env") or name.startswith(".npmrc") or name.endswith((".pem", ".key", ".p12")):
@@ -159,9 +174,7 @@ def scan(path: str | Path, *, max_files: int = 20, max_chars: int = 24_000,
     if root.is_file():
         # A directly selected file must not bypass the sensitive-directory
         # filter simply because its relative path has only one component.
-        if not _safe_parts(Path(root.name)) or any(
-            _blocked_component(part) for part in root.parent.parts
-        ):
+        if not _safe_parts(Path(root.name)) or _blocked_parent_path(root.parent):
             raise ValueError("Refusing a file in a sensitive or generated path")
         candidates = [root]
         base = root.parent

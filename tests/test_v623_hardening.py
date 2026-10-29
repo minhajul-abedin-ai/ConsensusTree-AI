@@ -46,7 +46,7 @@ class ScannerRaceTests(unittest.TestCase):
     @unittest.skipUnless(hasattr(os, 'symlink') and os.name == 'posix', 'Requires POSIX symlinks')
     def test_symlink_swap_before_descriptor_open_cannot_expose_secret(self):
         with tempfile.TemporaryDirectory() as folder:
-            root = Path(folder)/'project'
+            root = (Path(folder)/'project').resolve()
             root.mkdir()
             target = root/'a.py'
             target.write_text('harmless = 1\n')
@@ -57,7 +57,7 @@ class ScannerRaceTests(unittest.TestCase):
             triggered = False
             def swap_then_open(path, flags, *a, **kw):
                 nonlocal triggered
-                if Path(path) == target and not triggered:
+                if Path(path).resolve() == target and not triggered:
                     triggered = True
                     target.unlink()
                     target.symlink_to(outside)
@@ -73,9 +73,12 @@ class ScannerRaceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             Path(folder, 'ok.py').write_text('ok = True\n')
             raw = os.fsencode(folder) + b'/invalid_\xff.py'
-            fd = os.open(raw, os.O_CREAT | os.O_WRONLY, 0o600)
-            os.write(fd, b'not_ok = 1\n')
-            os.close(fd)
+            try:
+                fd = os.open(raw, os.O_CREAT | os.O_WRONLY, 0o600)
+            except OSError as exc:
+                self.skipTest(f'Filesystem does not allow arbitrary-byte filenames: {exc}')
+            with os.fdopen(fd, 'wb') as stream:
+                stream.write(b'not_ok = 1\n')
             result = scanner.scan(folder)
             self.assertEqual(result.files, ['ok.py'])
 
@@ -95,7 +98,10 @@ class GitDiffPrivacyTests(unittest.TestCase):
             (repo/'src'/'app.py').write_text('safe = 1\n')
             (repo/'secrets'/'config.py').write_text('HIDDEN = 1\n')
             weird=repo/'src'/'bad\nname.py'
-            weird.write_text('weird = 1\n')
+            try:
+                weird.write_text('weird = 1\n')
+            except OSError as exc:
+                self.skipTest(f'Filesystem does not allow newline filenames: {exc}')
             git('add', '.');git('commit', '-qm', 'initial')
             (repo/'src'/'app.py').write_text('safe = 2\n')
             (repo/'secrets'/'config.py').write_text('HIDDEN = 2\n')
