@@ -67,7 +67,7 @@ See [release record](docs/RELEASE_6_2_5.md), [independent benchmark protocol](do
 - Added privacy preflight to `ask` and non-source `debate` CLI calls, and to SDK basic/hierarchical councils (opt-in override remains available for explicitly approved input).
 - Corrected stale UI version and duplicate HTML `class` attributes.
 - Display eligible/omitted source counts in Studio preview and code-review metadata; a bounded review is **never** a full-codebase audit.
-- The cross-platform CI matrix later passed on GitHub-hosted Ubuntu, macOS and Windows runners for Python 3.10–3.13 ([latest run](https://github.com/${repo}/actions/runs/40807862179)).
+- The cross-platform CI matrix later passed on GitHub-hosted Ubuntu, macOS and Windows runners for Python 3.10–3.13 ([latest run](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/actions/runs/40807862179)).
 - Existing baseline plus 12 new security/correctness regression tests. No real hosted provider calls or external security certification have been performed.
 
 ## v6.2.3 RC1 — privacy and benchmark hardening (28 October 2026)

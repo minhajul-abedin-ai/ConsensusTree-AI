@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use ConsensusTree AI in your work, please cite the software and include the version you used."
+title: "ConsensusTree AI"
+authors:
+  - family-names: Abedin
+    given-names: Minhajul
+version: 6.3.0rc1
+license: MIT
+repository-code: "https://github.com/minhajul-abedin-ai/ConsensusTree-AI"

@@ -1,38 +1,50 @@
-# ConsensusTree AI v6.3.0rc1 — public release gates
+# ConsensusTree AI v6.3.0rc1 — publication and release readiness
 
-**Intended release:** free, public, MIT-licensed **experimental prerelease**, not a hosted production service.
+**Intended release:** a free, public, MIT-licensed experimental developer prerelease. This is not a hosted production service.
 
-## Verified in the authoring environment (2026-10-29)
+## Current GitHub publication status
 
-- Python 3.13, 177/177 deterministic unit/integration/regression tests passed.
-- Chromium: responsive UI at 360, 390, 768, 1024 and 1440 pixels; mocked-API review, consent, report export and partial-run warnings passed.
-- Python package: built as a wheel and installed to a separate target directory; offline demonstration and diagnostics ran successfully.
-- GitHub Actions: workflow YAML parsed and trust-boundary invariants covered by tests. **No live Actions run is claimed.**
-- Source ZIP: excludes `.git`, `__pycache__`, build output, test caches, and `.env` files; static scans did not find recognized credential token values. This does **not** prove an exhaustive secret scan.
+Checked 29 October 2026:
 
-## Blockers to claiming a production-grade code reviewer
+- The public repository contains the project source, tests, examples, documentation and GitHub workflows on `main`.
+- The latest observed cross-platform CI run passed all 12 Ubuntu, macOS and Windows jobs across Python 3.10–3.13: [CI run](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/actions/runs/40807862179).
+- CodeQL completed successfully on the same commit: [CodeQL run](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/actions/runs/40807862161).
+- The first CI run failed; cross-platform fixes were pushed and the later run passed.
+- No Git tag or GitHub Release exists yet. The repository's `main` branch is not protected.
+- The dependency-review workflow has not run; it is configured for pull requests or manual dispatch, and there are no pull requests.
+- Repository topics are not set yet.
 
-- [ ] Run actual successful, logged, authorized requests against **OpenAI, Gemini, Claude and Ollama**; verify provider model access, errors, billing, request limits and real-world stability. Do not put credentials in issue comments or source code.
-- [ ] Have separate external reviewers adjudicate a representative held-out set of real defects and fixed controls. Measure precision, recall, false positives, costs and latency against a comparable single-model baseline. The supplied 50-case synthetic suite does **not** prove these metrics.
-- [ ] Commission an independent security assessment; resolve serious findings and document scope. This project and its own automated tests cannot certify their own independence.
-- [ ] Execute GitHub Actions on a separate test repository and PR. Validate permissions, PR secret restrictions, default-branch trust model, bot comment idempotency and billing. Do **not** enable `CONSENSUSTREE_AUTO_REVIEW` in an unfamiliar public repository.
-- [ ] Verify installation and app interactions on actual macOS, Linux and Windows machines; matrix CI is included but not yet externally observed running.
-- [ ] Observe actual use and collect consent/privacy and error reports from at least several independent developers.
+## Publication tasks
 
-## Publication steps for the experimental GitHub prerelease
+- [x] Create the public `ConsensusTree-AI` repository and publish the unpacked source, including `.github/` and `src/`.
+- [x] Run repository CI and CodeQL on GitHub's hosted runners and address the initial CI failures.
+- [x] Run an offline package/install and demo check in the authoring environment.
+- [ ] Protect `main`; require the CI checks before merging changes.
+- [ ] Review and enable suitable repository security features, including Dependabot alerts and security advisories; confirm GitHub secret-scanning status.
+- [ ] Add accurate repository topics to improve relevant discovery.
+- [ ] Create a prerelease tag and GitHub Release for `v6.3.0rc1`, titled **Experimental developer preview — not independently audited**. This release should preserve the experimental status below.
+- [ ] Keep `CONSENSUSTREE_AUTO_REVIEW` disabled until its privileged workflow has been separately reviewed and tested on a disposable repository and pull request.
 
-1. Create a **Public** repository named `ConsensusTree-AI` with no newly initialized README/license/gitignore. Upload the **unpacked** project source, including `.github/` and `src/`.
-2. Inspect all source code and images before pushing, using GitHub's secret scanning and your own review. No default API tokens should be committed.
-3. Confirm CI and CodeQL run from GitHub's servers and address failures. Protect the `main` branch, require PR reviews and enable security advisories.
-4. Run a local, offline smoke test: `python -m pip install -e . && consensustree doctor && consensustree quickstart`.
-5. Publish as a prerelease `v6.3.0rc1` with title **Experimental developer preview — not independently audited**. Keep `CONSENSUSTREE_AUTO_REVIEW` **unset/false** until the opt-in workflow has been tested on a disposable PR and provider costs are understood.
-6. Never expose `consensustree studio` through a public proxy. It is intended only for single-user loopback access and has no multi-user authentication, tenant boundaries, or production hosting security.
+A static token-pattern scan of the submitted source did not identify recognized credential values. This is not an exhaustive secret scan. Do not commit provider keys or private source data.
 
-## GitHub event security note
+## Gates before claiming production-grade code review
 
-The optional PR review workflow is triggered by `pull_request_target`, which GitHub runs with trusted default-branch workflow source and a credentialed context. The workflow explicitly checks out the trusted base SHA, fetches the head SHA *only as Git objects*, and never builds or executes PR head contents. Fork PRs are skipped and a repository variable opt-in is required. **This remains a privileged automation that must be independently reviewed, observed in real GitHub Actions runs, and may be affected by current GitHub Actions event policies.** Alternative is to leave it disabled and use the local CLI for manual PR review.
+- [ ] Make authorized live requests to OpenAI, Gemini, Anthropic and Ollama; record provider/model access, failures, billing, request limits and stability. Never place credentials in issue comments or source.
+- [ ] Have independent reviewers label a representative held-out set of real defects and fixed controls. Measure precision, recall, false positives, costs and latency against a comparable single-model baseline. The supplied synthetic suite does not establish these metrics.
+- [ ] Commission an independent security assessment, resolve serious findings and document its scope.
+- [ ] Validate the optional GitHub PR workflow in a separate test repository. Check permissions, secret restrictions, base-branch trust, comment idempotency and cost. Keep it disabled until this is complete.
+- [x] Confirm the automated matrix runs on GitHub-hosted Ubuntu, macOS and Windows runners for Python 3.10–3.13.
+- [ ] Test interactive installation and use on developer-owned systems; hosted CI does not replace broader user testing.
+- [ ] Collect consent, privacy and error feedback from independent developers.
 
-## Marketing claims: permitted vs unsupported
+## Safety boundaries
 
-- **Permitted:** 'Local-first open-source AI council and code-review prototype', 'MIT-licensed', 'AI-generated suggestions require verification', 'Supports multiple providers via local adapters'.
-- **Not supported:** 'AI reviews are accurate / better than alternatives', 'enterprise-grade', 'zero false positives', 'audited security', 'fully autonomous safe code reviews', '10,000 stars achieved', 'cost free to use third-party model APIs'.
+The Studio is for single-user localhost use. Do not expose it through a public proxy: it has no multi-user authentication, tenant boundaries or production hosting controls. AI output is a hypothesis that requires human verification.
+
+The optional pull-request reviewer uses `pull_request_target`, trusted base code and data-only Git diff inspection. It does not check out or execute PR-head code. It remains privileged automation and requires independent review before enabling. GitHub Actions event policies may also affect its behavior.
+
+## Claims supported by the current evidence
+
+- **Supported:** “Local-first open-source AI council and code-review prototype”; “MIT-licensed”; “AI-generated suggestions require verification”; “supports multiple providers through local adapters.”
+- **Not established:** measured review accuracy or superiority; zero false positives; enterprise readiness; independent security certification; safe autonomous reviews; no-cost third-party API use.
+
