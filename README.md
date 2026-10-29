@@ -14,6 +14,16 @@
 
 > ConsensusTree asks multiple model reviewers to examine bounded code or a decision, then presents a chair's synthesis for a person to verify. It is an experimental developer tool, not a production security auditor or hosted multi-user service. AI findings are hypotheses; real-provider validation, independent quality benchmarking and external security review remain outstanding.
 
+## Who is ConsensusTree for?
+
+- **Developers exploring AI-assisted review:** compare bounded code-review perspectives while verifying every proposed finding.
+- **Researchers exploring multi-agent decisions:** inspect disagreements and the final synthesis without mistaking consensus for correctness.
+- **Open-source contributors:** run the offline example, read [CONTRIBUTING.md](CONTRIBUTING.md), and [report reproducible issues](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/issues).
+
+**Explore:** [No-key demo](#try-the-offline-demo) · [Studio guide](docs/STUDIO.md) · [Example screenshots](docs/images/final-studio-desktop.png) · [Security guidance](SECURITY.md) · [Release checklist](docs/FINAL_RELEASE_CHECKLIST.md)
+
+**Validation boundary:** automated CI and security scanning are not independent proof of review accuracy or production security. Provider testing and third-party assessment remain open; this tool requires human oversight.
+
 ## Try the offline demo
 
 No API key or provider request is needed:
