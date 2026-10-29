@@ -1,0 +1,6 @@
+{
+  "openai:REPLACE_WITH_YOUR_MODEL": {
+    "input_per_million_usd": 0,
+    "output_per_million_usd": 0
+  }
+}

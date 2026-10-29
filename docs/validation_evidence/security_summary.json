@@ -1,0 +1,19 @@
+{
+  "date_utc": "2026-10-28",
+  "security_assessment_type": "Internal local hostile-input regression only",
+  "independent_external_reviewer": false,
+  "adversarial_http_tests_passed": 14,
+  "adversarial_http_tests_failed": 0,
+  "total_python_tests_passed": 125,
+  "critical_vulnerabilities_absent": "not established",
+  "risks_requiring_external_review": [
+    "source scanner time-of-check/time-of-use and symlink races",
+    "best-effort secret warning misses some credential formats",
+    "local capability URL if copied or disclosed",
+    "opt-in untrusted repository test execution is unsandboxed",
+    "third-party plugins execute Python in the host process",
+    "cross-platform tests and dependency advisory scan not performed",
+    "public multi-user deployment not supported or tested"
+  ],
+  "conclusion": "Passed limited internal adversarial tests; external security assessment not completed"
+}

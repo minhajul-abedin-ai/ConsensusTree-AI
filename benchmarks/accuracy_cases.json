@@ -1,0 +1,358 @@
+{
+  "name": "ConsensusTree synthetic binary code-review accuracy cases",
+  "origin": "Author-labelled synthetic examples: NOT independently adjudicated",
+  "construction": "25 vulnerable/safe pairs across 10 defect families",
+  "version": "1.0",
+  "cases": [
+    {
+      "id": "untrusted_eval-1-unsafe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": true,
+      "source": "def parse_1(user_text):\n    return eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_eval-1-safe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": false,
+      "source": "import ast\ndef parse_1(user_text):\n    return ast.literal_eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_eval-2-unsafe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": true,
+      "source": "def parse_2(user_text):\n    return eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_eval-2-safe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": false,
+      "source": "import ast\ndef parse_2(user_text):\n    return ast.literal_eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_eval-3-unsafe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": true,
+      "source": "def parse_3(user_text):\n    return eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_eval-3-safe",
+      "family": "untrusted_eval",
+      "category": "code_execution",
+      "expected_issue": false,
+      "source": "import ast\ndef parse_3(user_text):\n    return ast.literal_eval(user_text)\n"
+    },
+    {
+      "id": "untrusted_pickle-1-unsafe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import pickle\ndef load_1(client_bytes):\n    return pickle.loads(client_bytes)\n"
+    },
+    {
+      "id": "untrusted_pickle-1-safe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import json\ndef load_1(client_bytes):\n    return json.loads(client_bytes.decode(\"utf-8\"))\n"
+    },
+    {
+      "id": "untrusted_pickle-2-unsafe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import pickle\ndef load_2(client_bytes):\n    return pickle.loads(client_bytes)\n"
+    },
+    {
+      "id": "untrusted_pickle-2-safe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import json\ndef load_2(client_bytes):\n    return json.loads(client_bytes.decode(\"utf-8\"))\n"
+    },
+    {
+      "id": "untrusted_pickle-3-unsafe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import pickle\ndef load_3(client_bytes):\n    return pickle.loads(client_bytes)\n"
+    },
+    {
+      "id": "untrusted_pickle-3-safe",
+      "family": "untrusted_pickle",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import json\ndef load_3(client_bytes):\n    return json.loads(client_bytes.decode(\"utf-8\"))\n"
+    },
+    {
+      "id": "shell_injection-1-unsafe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": true,
+      "source": "import subprocess\ndef inspect_1(filename):\n    return subprocess.run(\"ls \" + filename, shell=True, capture_output=True)\n"
+    },
+    {
+      "id": "shell_injection-1-safe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": false,
+      "source": "import subprocess\ndef inspect_1(filename):\n    return subprocess.run([\"ls\", \"--\", filename], capture_output=True)\n"
+    },
+    {
+      "id": "shell_injection-2-unsafe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": true,
+      "source": "import subprocess\ndef inspect_2(filename):\n    return subprocess.run(\"ls \" + filename, shell=True, capture_output=True)\n"
+    },
+    {
+      "id": "shell_injection-2-safe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": false,
+      "source": "import subprocess\ndef inspect_2(filename):\n    return subprocess.run([\"ls\", \"--\", filename], capture_output=True)\n"
+    },
+    {
+      "id": "shell_injection-3-unsafe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": true,
+      "source": "import subprocess\ndef inspect_3(filename):\n    return subprocess.run(\"ls \" + filename, shell=True, capture_output=True)\n"
+    },
+    {
+      "id": "shell_injection-3-safe",
+      "family": "shell_injection",
+      "category": "command_injection",
+      "expected_issue": false,
+      "source": "import subprocess\ndef inspect_3(filename):\n    return subprocess.run([\"ls\", \"--\", filename], capture_output=True)\n"
+    },
+    {
+      "id": "sql_injection-1-unsafe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": true,
+      "source": "def find_1(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = '\" + username + \"'\")\n"
+    },
+    {
+      "id": "sql_injection-1-safe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": false,
+      "source": "def find_1(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = ?\", (username,))\n"
+    },
+    {
+      "id": "sql_injection-2-unsafe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": true,
+      "source": "def find_2(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = '\" + username + \"'\")\n"
+    },
+    {
+      "id": "sql_injection-2-safe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": false,
+      "source": "def find_2(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = ?\", (username,))\n"
+    },
+    {
+      "id": "sql_injection-3-unsafe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": true,
+      "source": "def find_3(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = '\" + username + \"'\")\n"
+    },
+    {
+      "id": "sql_injection-3-safe",
+      "family": "sql_injection",
+      "category": "sql_injection",
+      "expected_issue": false,
+      "source": "def find_3(db, username):\n    return db.execute(\"SELECT * FROM users WHERE name = ?\", (username,))\n"
+    },
+    {
+      "id": "insecure_yaml-1-unsafe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import yaml\ndef config_1(untrusted_text):\n    return yaml.load(untrusted_text, Loader=yaml.Loader)\n"
+    },
+    {
+      "id": "insecure_yaml-1-safe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import yaml\ndef config_1(untrusted_text):\n    return yaml.safe_load(untrusted_text)\n"
+    },
+    {
+      "id": "insecure_yaml-2-unsafe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import yaml\ndef config_2(untrusted_text):\n    return yaml.load(untrusted_text, Loader=yaml.Loader)\n"
+    },
+    {
+      "id": "insecure_yaml-2-safe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import yaml\ndef config_2(untrusted_text):\n    return yaml.safe_load(untrusted_text)\n"
+    },
+    {
+      "id": "insecure_yaml-3-unsafe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": true,
+      "source": "import yaml\ndef config_3(untrusted_text):\n    return yaml.load(untrusted_text, Loader=yaml.Loader)\n"
+    },
+    {
+      "id": "insecure_yaml-3-safe",
+      "family": "insecure_yaml",
+      "category": "deserialization",
+      "expected_issue": false,
+      "source": "import yaml\ndef config_3(untrusted_text):\n    return yaml.safe_load(untrusted_text)\n"
+    },
+    {
+      "id": "path_traversal-1-unsafe",
+      "family": "path_traversal",
+      "category": "path_traversal",
+      "expected_issue": true,
+      "source": "from pathlib import Path\ndef view_1(base, filename):\n    return (Path(base) / filename).read_text()\n"
+    },
+    {
+      "id": "path_traversal-1-safe",
+      "family": "path_traversal",
+      "category": "path_traversal",
+      "expected_issue": false,
+      "source": "from pathlib import Path\ndef view_1(base, filename):\n    root = Path(base).resolve()\n    target = (root / filename).resolve()\n    if not target.is_relative_to(root):\n        raise ValueError(\"Outside root\")\n    return target.read_text()\n"
+    },
+    {
+      "id": "path_traversal-2-unsafe",
+      "family": "path_traversal",
+      "category": "path_traversal",
+      "expected_issue": true,
+      "source": "from pathlib import Path\ndef view_2(base, filename):\n    return (Path(base) / filename).read_text()\n"
+    },
+    {
+      "id": "path_traversal-2-safe",
+      "family": "path_traversal",
+      "category": "path_traversal",
+      "expected_issue": false,
+      "source": "from pathlib import Path\ndef view_2(base, filename):\n    root = Path(base).resolve()\n    target = (root / filename).resolve()\n    if not target.is_relative_to(root):\n        raise ValueError(\"Outside root\")\n    return target.read_text()\n"
+    },
+    {
+      "id": "tls_verification-1-unsafe",
+      "family": "tls_verification",
+      "category": "tls_validation",
+      "expected_issue": true,
+      "source": "import requests\ndef fetch_1(url):\n    return requests.get(url, verify=False, timeout=10)\n"
+    },
+    {
+      "id": "tls_verification-1-safe",
+      "family": "tls_verification",
+      "category": "tls_validation",
+      "expected_issue": false,
+      "source": "import requests\ndef fetch_1(url):\n    return requests.get(url, verify=True, timeout=10)\n"
+    },
+    {
+      "id": "tls_verification-2-unsafe",
+      "family": "tls_verification",
+      "category": "tls_validation",
+      "expected_issue": true,
+      "source": "import requests\ndef fetch_2(url):\n    return requests.get(url, verify=False, timeout=10)\n"
+    },
+    {
+      "id": "tls_verification-2-safe",
+      "family": "tls_verification",
+      "category": "tls_validation",
+      "expected_issue": false,
+      "source": "import requests\ndef fetch_2(url):\n    return requests.get(url, verify=True, timeout=10)\n"
+    },
+    {
+      "id": "insecure_tempname-1-unsafe",
+      "family": "insecure_tempname",
+      "category": "filesystem_race",
+      "expected_issue": true,
+      "source": "import tempfile\ndef scratch_1():\n    name = tempfile.mktemp()\n    return open(name, \"w\")\n"
+    },
+    {
+      "id": "insecure_tempname-1-safe",
+      "family": "insecure_tempname",
+      "category": "filesystem_race",
+      "expected_issue": false,
+      "source": "import tempfile\ndef scratch_1():\n    return tempfile.NamedTemporaryFile(mode=\"w\", delete=True)\n"
+    },
+    {
+      "id": "insecure_tempname-2-unsafe",
+      "family": "insecure_tempname",
+      "category": "filesystem_race",
+      "expected_issue": true,
+      "source": "import tempfile\ndef scratch_2():\n    name = tempfile.mktemp()\n    return open(name, \"w\")\n"
+    },
+    {
+      "id": "insecure_tempname-2-safe",
+      "family": "insecure_tempname",
+      "category": "filesystem_race",
+      "expected_issue": false,
+      "source": "import tempfile\ndef scratch_2():\n    return tempfile.NamedTemporaryFile(mode=\"w\", delete=True)\n"
+    },
+    {
+      "id": "debug_server-1-unsafe",
+      "family": "debug_server",
+      "category": "configuration",
+      "expected_issue": true,
+      "source": "from flask import Flask\napp = Flask(__name__)\ndef start_1():\n    app.run(host=\"0.0.0.0\", debug=True)\n"
+    },
+    {
+      "id": "debug_server-1-safe",
+      "family": "debug_server",
+      "category": "configuration",
+      "expected_issue": false,
+      "source": "from flask import Flask\napp = Flask(__name__)\ndef start_1():\n    app.run(host=\"127.0.0.1\", debug=False)\n"
+    },
+    {
+      "id": "debug_server-2-unsafe",
+      "family": "debug_server",
+      "category": "configuration",
+      "expected_issue": true,
+      "source": "from flask import Flask\napp = Flask(__name__)\ndef start_2():\n    app.run(host=\"0.0.0.0\", debug=True)\n"
+    },
+    {
+      "id": "debug_server-2-safe",
+      "family": "debug_server",
+      "category": "configuration",
+      "expected_issue": false,
+      "source": "from flask import Flask\napp = Flask(__name__)\ndef start_2():\n    app.run(host=\"127.0.0.1\", debug=False)\n"
+    },
+    {
+      "id": "weak_password_hash-1-unsafe",
+      "family": "weak_password_hash",
+      "category": "password_hashing",
+      "expected_issue": true,
+      "source": "import hashlib\ndef digest_1(password, salt):\n    return hashlib.md5(password.encode()).hexdigest()\n"
+    },
+    {
+      "id": "weak_password_hash-1-safe",
+      "family": "weak_password_hash",
+      "category": "password_hashing",
+      "expected_issue": false,
+      "source": "import hashlib\ndef digest_1(password, salt):\n    return hashlib.scrypt(password.encode(), salt=salt, n=2**14, r=8, p=1)\n"
+    },
+    {
+      "id": "weak_password_hash-2-unsafe",
+      "family": "weak_password_hash",
+      "category": "password_hashing",
+      "expected_issue": true,
+      "source": "import hashlib\ndef digest_2(password, salt):\n    return hashlib.md5(password.encode()).hexdigest()\n"
+    },
+    {
+      "id": "weak_password_hash-2-safe",
+      "family": "weak_password_hash",
+      "category": "password_hashing",
+      "expected_issue": false,
+      "source": "import hashlib\ndef digest_2(password, salt):\n    return hashlib.scrypt(password.encode(), salt=salt, n=2**14, r=8, p=1)\n"
+    }
+  ]
+}

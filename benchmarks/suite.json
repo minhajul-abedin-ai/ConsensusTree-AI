@@ -1,0 +1,7 @@
+{
+  "name": "Synthetic fixture checks (not a model benchmark)",
+  "cases": [
+    {"id": "unverified-assumptions", "report": "demo1.json", "required_terms": ["assumptions", "pilot"], "prohibited_terms": ["guaranteed 100% accurate"]},
+    {"id": "security-review", "report": "demo2.json", "required_terms": ["security", "tests"], "prohibited_terms": ["verified all vulnerabilities"]}
+  ]
+}

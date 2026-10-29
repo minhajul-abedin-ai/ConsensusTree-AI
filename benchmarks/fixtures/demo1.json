@@ -1,0 +1,1 @@
+{"mode":"ask","task":"Pilot a new feature","agents":[{"role":"Skeptic","model":"fixture","content":"The assumptions need validation before a pilot.","duration_seconds":0}],"synthesis":"Start with a small pilot and inspect assumptions."}

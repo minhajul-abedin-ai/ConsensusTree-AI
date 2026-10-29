@@ -1,0 +1,88 @@
+{
+  "mode": "demo",
+  "demo": true,
+  "created_utc": "2026-10-28T10:00:00+00:00",
+  "task": "ILLUSTRATIVE FIXTURE — Review a fictional checkout API pull request for release readiness. No real repository was tested.",
+  "agents": [
+    {
+      "role": "G1 Architecture",
+      "model": "illustrative-fixture",
+      "content": "**Summary:** The checkout endpoint calls payment processing directly from its HTTP handler.\n\n**Finding (medium):** Business logic and transport concerns are tightly coupled in `checkout.py:42`.\n\n**Suggested fix:** Introduce a narrow payment service interface and explicit error types.\n\n**Unknown:** Background job semantics were not included in the source snapshot.",
+      "duration_seconds": 0
+    },
+    {
+      "role": "G1 Security",
+      "model": "illustrative-fixture",
+      "content": "**Finding (high, unverified):** `api/payments.py:57` accepts a client-supplied currency amount without a visible reconciliation against the server-side cart.\n\n**Suggested fix:** Recalculate totals server-side, verify ownership and apply idempotency keys.\n\n**Unknown:** Hidden middleware or upstream validation may already mitigate this.",
+      "duration_seconds": 0
+    },
+    {
+      "role": "G1 Reliability",
+      "model": "illustrative-fixture",
+      "content": "**Finding (medium):** `api/payments.py:88` retries on timeouts without a visible idempotency policy.\n\n**Risk:** Duplicate payment attempts under network failures.\n\n**Suggested fix:** Add idempotency tests and deterministic timeout handling.",
+      "duration_seconds": 0
+    },
+    {
+      "role": "G2 Security",
+      "model": "illustrative-fixture",
+      "content": "**Assessment:** Prioritise trust-boundary verification before a public rollout.\n\n**Possible issue:** User-controlled fields reach a payment call; confirm exact source references and test before escalating.\n\n**Counterpoint:** The visible snapshot may not include the required validation layer.",
+      "duration_seconds": 0
+    },
+    {
+      "role": "G2 Reliability",
+      "model": "illustrative-fixture",
+      "content": "**Assessment:** Test the rollback path and user-visible error states.\n\n**Potential weakness:** No contract test for failed third-party payments appears in the sample.\n\n**Verification:** Write a failure-injection test with a fake provider.",
+      "duration_seconds": 0
+    },
+    {
+      "role": "G2 Architecture",
+      "model": "illustrative-fixture",
+      "content": "**Recommendation:** Make the smallest safe change first: server-side order verification, payment idempotency, then extract service boundaries.\n\n**Tradeoff:** A complete rewrite would be costly without demonstrated benefit.",
+      "duration_seconds": 0
+    }
+  ],
+  "groups": [
+    {
+      "group": 1,
+      "chair_model": "illustrative-fixture",
+      "agent_roles": [
+        "G1 Architecture",
+        "G1 Security",
+        "G1 Reliability"
+      ],
+      "summary": "**Provisional conclusion:** Do not merge until the amount-validation and idempotency paths have been independently inspected.\n\n**Evidence required:** Payment mock tests and the full cart reconciliation implementation."
+    },
+    {
+      "group": 2,
+      "chair_model": "illustrative-fixture",
+      "agent_roles": [
+        "G2 Security",
+        "G2 Reliability",
+        "G2 Architecture"
+      ],
+      "summary": "**Provisional conclusion:** Fix high-risk checkout invariants before refactoring the handler.\n\n**Disagreement:** Whether the architecture issue should block this particular release."
+    }
+  ],
+  "synthesis": "**Final recommendation:** Hold the fictional release for targeted verification, not a wholesale rewrite.\n\n**Areas of agreement:** All specialists prioritize payment correctness and repeat-request safety.\n\n**Disagreements / uncertainties:** Architecture refactoring is lower urgency; unseen code may already validate amounts.\n\n**Priority next steps:**\n- Check server-side total calculation and authorization boundaries.\n- Add idempotency and timeout regression tests.\n- Review the complete payment flow with a human maintainer.\n\n**Verification required:** These findings are synthetic examples, not actual detected vulnerabilities.",
+  "chair_model": "illustrative-fixture",
+  "errors": [],
+  "reviewed_files": [
+    "api/checkout.py (fictional)",
+    "api/payments.py (fictional)",
+    "tests/test_checkout.py (fictional)",
+    "lib/price_rules.py (fictional)"
+  ],
+  "snapshot_truncated": true,
+  "execution": {
+    "strategy": "illustrative-hierarchical",
+    "planned_calls": 9,
+    "actual_calls": 0,
+    "max_calls": 9,
+    "validation": "illustrative fixture; no model calls, scans, or tests were run"
+  },
+  "evidence": {
+    "verified_by": "none (illustrative only)",
+    "passed": "not executed",
+    "note": "This file intentionally contains no authenticated test results."
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "status": "not_run",
+  "reason": "--execute required for paid or live model requests",
+  "cases_available": 50,
+  "accuracy_measured": false
+}

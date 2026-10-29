@@ -1,0 +1,37 @@
+{
+  "generated_utc": "2026-10-28T23:37:11.095540+00:00",
+  "mode": "opt-in live model calls",
+  "third_party_assessment": false,
+  "providers": [
+    {
+      "provider": "openai",
+      "model": "gpt-4.1-mini",
+      "status": "skipped",
+      "live_verified": false,
+      "reason": "API key not configured"
+    },
+    {
+      "provider": "gemini",
+      "model": "gemini-2.5-flash",
+      "status": "skipped",
+      "live_verified": false,
+      "reason": "API key not configured"
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5",
+      "status": "skipped",
+      "live_verified": false,
+      "reason": "API key not configured"
+    },
+    {
+      "provider": "ollama",
+      "model": "llama3.2",
+      "status": "failed",
+      "live_verified": false,
+      "reason": "ProviderError",
+      "latency_seconds": 0.01
+    }
+  ],
+  "all_live_verified": false
+}

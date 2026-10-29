@@ -1,0 +1,51 @@
+name: ConsensusTree opt-in AI PR review
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: write
+concurrency:
+  group: consensustree-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+jobs:
+  review:
+    # Admin opt-in. The workflow itself comes from the trusted DEFAULT branch.
+    # No fork PRs. No PR source code is checked out or executed.
+    if: >-
+      github.event_name == 'pull_request_target' &&
+      vars.CONSENSUSTREE_AUTO_REVIEW == 'true' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # Checkout TRUSTED BASE source. pull_request_target reads workflow config
+      # from the default branch; the PR head is never checked out or executed.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Fetch PR head as Git objects ONLY (never execute it)
+        env:
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if ! [[ "$PR_HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+            echo "Invalid head SHA" >&2
+            exit 1
+          fi
+          git -c protocol.file.allow=never fetch --no-tags origin "$PR_HEAD_SHA"
+          git cat-file -e "$PR_HEAD_SHA^{commit}"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install trusted base implementation
+        run: python -m pip install --no-deps .
+      - name: Review changed lines (read-only Git diff; no test execution)
+        env:
+          CONSENSUSTREE_AUTO_REVIEW: ${{ vars.CONSENSUSTREE_AUTO_REVIEW }}
+          CONSENSUSTREE_PROVIDER: openai
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python -m consensustree.automation

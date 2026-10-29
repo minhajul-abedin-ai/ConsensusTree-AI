@@ -1,0 +1,1 @@
+{"mode":"review","task":"Inspect code","agents":[{"role":"Security","model":"fixture","content":"Security findings may be wrong; validate with tests.","duration_seconds":0}],"synthesis":"Run tests to validate security concerns."}

@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "consensustree-ai"
+version = "6.3.0rc1"
+description = "An open-source multi-model AI council for code reviews and decisions"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "ConsensusTree AI Contributors"}]
+keywords = ["ai", "agents", "code-review", "llm", "multi-agent", "developer-tools"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = []
+
+[project.scripts]
+consensustree = "consensustree.cli:main"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+consensustree = ["dashboard_template.html", "studio_template.html"]
