@@ -2,31 +2,46 @@
 
 # 🌳 ConsensusTree AI
 
-**Local-first AI councils · Code reviews · Interactive decision workbench**
+**A local-first, human-in-the-loop AI council for code review and technical decisions**
 
-**v6.3.0rc1 | Python 3.10+ | MIT | Browser studio + CLI + Python SDK**
+[![CI](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/actions/workflows/tests.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 
-**Free and open source (MIT):** The source code is free to use, modify, and redistribute. Optional hosted AI providers can charge API fees; the offline demo does not require API keys.
+**v6.3.0rc1 · Experimental prerelease · CLI, Python SDK, local browser Studio**
 
 </div>
 
-> **Status:** v6.3.0 release candidate for personal/local developer use. Not a production security auditor or hosted multi-user service. Findings are AI-generated hypotheses; real model-provider smoke tests, independent quality benchmarks and public adoption remain outstanding.
+> ConsensusTree asks multiple model reviewers to examine bounded code or a decision, then presents a chair's synthesis for a person to verify. It is an experimental developer tool, not a production security auditor or hosted multi-user service. AI findings are hypotheses; real-provider validation, independent quality benchmarking and external security review remain outstanding.
 
-## 90-second offline preview (no paid API keys)
+## Try the offline demo
+
+No API key or provider request is needed:
 
 ```bash
+git clone https://github.com/minhajul-abedin-ai/ConsensusTree-AI.git
+cd ConsensusTree-AI
 python -m pip install -e .
 consensustree doctor
 consensustree quickstart
 ```
 
-Open `consensustree-quickstart/sample.html` in your browser. This sample is **fictional** and does not contact any AI provider. For the interactive local Studio use `consensustree studio --root ./examples --open` and keep its private URL to yourself.
+Open `consensustree-quickstart/sample.html`. The sample is **fictional fixture content**; it does not contact an AI provider. For the local interactive Studio, run `consensustree studio --root ./examples --open`. Keep its private URL to yourself.
 
-![Dark desktop Studio preview — mocked example results](docs/images/final-studio-desktop.png)
+![ConsensusTree Studio preview with fictional example results](docs/images/final-studio-desktop.png)
 
-[Mobile screenshot](docs/images/final-studio-mobile.png) · [Report preview](docs/images/final-results-desktop.png)
+[Mobile Studio preview](docs/images/final-studio-mobile.png) · [Report preview](docs/images/final-results-desktop.png) · [Studio instructions](docs/STUDIO.md)
 
-**Important:** For a safe public GitHub release, follow the [final release checklist](docs/FINAL_RELEASE_CHECKLIST.md) and leave the privileged AI PR reviewer disabled until validated on a real GitHub PR.
+## What it is designed to do
+
+- Gather separate reviewer perspectives and a chair's synthesis.
+- Make disagreements, incomplete runs and verification steps visible.
+- Let you preview bounded source excerpts and consent before sending them to a hosted provider from the local Studio.
+- Produce Markdown, JSON and HTML reports for human review.
+
+The free MIT-licensed source can be used offline for the demo. Hosted model providers may charge for API use. Review [SECURITY.md](SECURITY.md) before sending private code to a provider.
+
+**Current release stage:** the public repository contains the v6.3.0rc1 source, but no GitHub tag or Release has been published yet. Follow the [release checklist](docs/FINAL_RELEASE_CHECKLIST.md) before creating one. Keep the privileged AI PR reviewer disabled until it has been validated on a disposable test repository and PR.
 
 ## v6.3.0 RC1 — final prerelease hardening
 
@@ -52,7 +67,7 @@ See [release record](docs/RELEASE_6_2_5.md), [independent benchmark protocol](do
 - Added privacy preflight to `ask` and non-source `debate` CLI calls, and to SDK basic/hierarchical councils (opt-in override remains available for explicitly approved input).
 - Corrected stale UI version and duplicate HTML `class` attributes.
 - Display eligible/omitted source counts in Studio preview and code-review metadata; a bounded review is **never** a full-codebase audit.
-- Added macOS/Windows CI matrix jobs (will be validated when GitHub Actions actually runs).
+- The cross-platform CI matrix later passed on GitHub-hosted Ubuntu, macOS and Windows runners for Python 3.10–3.13 ([latest run](https://github.com/${repo}/actions/runs/40807862179)).
 - Existing baseline plus 12 new security/correctness regression tests. No real hosted provider calls or external security certification have been performed.
 
 ## v6.2.3 RC1 — privacy and benchmark hardening (28 October 2026)
