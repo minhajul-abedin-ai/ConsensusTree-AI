@@ -16,8 +16,8 @@ Example:
 The example digest is a **placeholder**, not a real content hash. For real cases, compute the SHA-256 from identical canonical input bytes *before* either arm is run, then record that digest for both arms.
 
 ```bash
-python scripts/validate_paired_evaluation.py paired-records.json
+python scripts/validate_pairs.py paired-records.json
 python -m unittest discover -s scripts -p 'test_validate_paired_evaluation.py'
 ```
 
-Exit codes: 0 for valid structure, 1 for invalid records, 2 for unreadable or malformed JSON. Do not put secrets, proprietary code, or private participant data in published manifests. Preserve case-source revisions and independently reviewed labels separately. See [independent accuracy protocol](assessment/INDEPENDENT_ACCURACY_PROTOCOL.md). This tool does not replace that protocol and is not integrated into the existing benchmark CLI.
+Exit codes: 0 for valid structure, 1 for invalid records, 2 for unreadable or malformed JSON. Do not put secrets, proprietary code, or private participant data in published manifests. Preserve case-source revisions and independently reviewed labels separately. See [independent accuracy protocol](../assessment/INDEPENDENT_ACCURACY_PROTOCOL.md). This tool does not replace that protocol and is not integrated into the existing benchmark CLI.
