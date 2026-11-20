@@ -6,19 +6,27 @@ permissions:
   contents: read
 jobs:
   dependency-review:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: actions/dependency-review-action@v4
+  dependency-review-capability-notice:
+    name: Dependency review availability notice
+    if: github.event_name == 'pull_request' && vars.DEPENDENCY_REVIEW_ENABLED != 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Explain unavailable dependency review
+        run: |
+          echo "::warning title=Dependency review NOT performed::GitHub Dependency Graph/review is not confirmed available. Enable Dependency Graph in repository security settings, then set DEPENDENCY_REVIEW_ENABLED=true as a GitHub Actions repository variable to activate dependency-review. Static tests and CodeQL are separate checks."
   static-checks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: Run secure coding regression tests

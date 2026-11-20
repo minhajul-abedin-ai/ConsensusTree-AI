@@ -29,3 +29,17 @@ Studio source consent binds both the reviewed location and exact excerpt. Git me
 The optional credentialed workflow uses GitHub's `pull_request_target` event, trusted base SHA checkout and data-only diff reading. It never checks out or executes the PR head. It is **disabled unless** an administrator sets `CONSENSUSTREE_AUTO_REVIEW=true` and adds an appropriate API key secret. Fork PRs are excluded. Administrators must validate the real workflow and their GitHub Actions policy before enabling it; do not assume automated scans are a substitute for independent security review.
 
 The CLI rejects HTTP-based remote Ollama endpoints to reduce accidental transmission of local source over plaintext connections (local HTTP loopback remains supported). This is a guardrail, not a guarantee of end-to-end confidentiality, and TLS configuration is the operator's responsibility.
+
+## Dependency-review workflow availability
+
+GitHub's `actions/dependency-review-action` requires GitHub Dependency Graph support for this repository. A pull-request run on 12 November 2026 failed with `Dependency review is not supported on this repository`. This is a GitHub feature/configuration limitation, **not** a successful vulnerability audit.
+
+Until an administrator verifies support, the workflow's `dependency-review` job is intentionally skipped and the `dependency-review-capability-notice` job emits an explicit warning on pull requests. Unit/security regression tests and CodeQL continue separately. **Do not interpret a green workflow as evidence that dependency-review scanning ran.**
+
+To enable the real dependency-review gate:
+
+1. In repository **Settings → Security → Code security and analysis**, enable/verify the **Dependency graph** and check that GitHub Dependency Review is supported for the repository.
+2. Under **Settings → Secrets and variables → Actions → Variables**, create `DEPENDENCY_REVIEW_ENABLED` with the exact value `true`.
+3. Open a pull request and verify the `dependency-review` job actually executes and succeeds. If the job reports unsupported again, remove the variable and investigate the GitHub account/repository feature availability rather than claiming coverage.
+
+The opt-in variable does not enable GitHub's platform feature by itself. Dependency review is not a substitute for external security assessment.
