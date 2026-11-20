@@ -14,9 +14,9 @@ from unittest.mock import patch
 
 from consensustree.cli import main
 from consensustree.core import Council
+from consensustree.gitdiff import diff_snapshot
 from consensustree.hierarchy import HierarchicalCouncil
 from consensustree.providers import ModelSpec
-from consensustree.gitdiff import diff_snapshot
 from consensustree.scanner import scan
 from consensustree.studio import StudioState, _studio_template
 

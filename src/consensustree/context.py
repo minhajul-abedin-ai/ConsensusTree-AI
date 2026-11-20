@@ -10,7 +10,7 @@ import re
 import subprocess
 from pathlib import Path
 
-from .scanner import _safe_parts, EXTENSIONS, _read_bounded_regular_file
+from .scanner import EXTENSIONS, _read_bounded_regular_file, _safe_parts
 
 
 def changed_files(root: Path) -> set[str]:

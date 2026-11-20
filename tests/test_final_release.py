@@ -1,6 +1,5 @@
 """Final prerelease hardening tests: provider boundaries and trusted GitHub automation."""
 import os
-import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -8,7 +7,7 @@ from unittest.mock import patch
 from consensustree.automation import run_github_pr_review
 from consensustree.core import Council
 from consensustree.hierarchy import HierarchicalCouncil
-from consensustree.providers import LLMClient, ModelSpec, ProviderError, MAX_COMPLETION_CHARS
+from consensustree.providers import MAX_COMPLETION_CHARS, LLMClient, ModelSpec, ProviderError
 
 
 class ProviderSafetyTests(unittest.TestCase):

@@ -14,6 +14,13 @@ Checked 29 October 2026:
 - The dependency-review workflow has not run; it is configured for pull requests or manual dispatch, and there are no pull requests.
 - Repository topics are not set yet.
 
+## Update — 20 November 2026
+
+- The dependency-review workflow is now gated and warns visibly when it does not run (#3); see SECURITY.md to enable it.
+- A Ruff lint job was added to CI. Unit tests, offline smoke tests and wheel build passed locally on Python 3.13 before tagging, and the full GitHub matrix ran on the release PR.
+- Repository topics are set. Secret scanning and push protection are enabled; Dependabot security updates are disabled (the package has no third-party runtime dependencies).
+- The `v6.3.0rc1` tag and GitHub prerelease were created with the title below.
+
 ## Publication tasks
 
 - [x] Create the public `ConsensusTree-AI` repository and publish the unpacked source, including `.github/` and `src/`.
@@ -21,8 +28,8 @@ Checked 29 October 2026:
 - [x] Run an offline package/install and demo check in the authoring environment.
 - [ ] Protect `main`; require the CI checks before merging changes.
 - [ ] Review and enable suitable repository security features, including Dependabot alerts and security advisories; confirm GitHub secret-scanning status.
-- [ ] Add accurate repository topics to improve relevant discovery.
-- [ ] Create a prerelease tag and GitHub Release for `v6.3.0rc1`, titled **Experimental developer preview — not independently audited**. This release should preserve the experimental status below.
+- [x] Add accurate repository topics to improve relevant discovery.
+- [x] Create a prerelease tag and GitHub Release for `v6.3.0rc1`, titled **Experimental developer preview — not independently audited**. This release should preserve the experimental status below.
 - [ ] Keep `CONSENSUSTREE_AUTO_REVIEW` disabled until its privileged workflow has been separately reviewed and tested on a disposable repository and pull request.
 
 A static token-pattern scan of the submitted source did not identify recognized credential values. This is not an exhaustive secret scan. Do not commit provider keys or private source data.

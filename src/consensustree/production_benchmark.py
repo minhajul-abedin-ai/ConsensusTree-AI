@@ -12,7 +12,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from .core import Council, REVIEW_INSTRUCTIONS
+from .core import REVIEW_INSTRUCTIONS, Council
 from .metering import MeteredClient
 from .providers import DEFAULT_MODELS, LLMClient, ModelSpec
 from .scanner import Snapshot

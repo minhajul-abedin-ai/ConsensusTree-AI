@@ -10,9 +10,9 @@ import urllib.request
 from pathlib import Path
 from unittest.mock import patch
 
-from consensustree.studio import StudioState, _studio_template, create_server, _local_ollama_url
 from consensustree.metering import MeteredClient
-from consensustree.providers import ModelSpec, _NoRedirect
+from consensustree.providers import _NoRedirect
+from consensustree.studio import _local_ollama_url, _studio_template, create_server
 
 
 class FakeClient:

@@ -3,6 +3,7 @@ import json
 import threading
 import unittest
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+
 from consensustree.providers import LLMClient, ModelSpec, ProviderError, _post_json
 
 

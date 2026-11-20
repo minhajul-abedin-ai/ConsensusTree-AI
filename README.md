@@ -51,7 +51,7 @@ Open `consensustree-quickstart/sample.html`. The sample is **fictional fixture c
 
 The free MIT-licensed source can be used offline for the demo. Hosted model providers may charge for API use. Review [SECURITY.md](SECURITY.md) before sending private code to a provider.
 
-**Current release stage:** the public repository contains the v6.3.0rc1 source, but no GitHub tag or Release has been published yet. Follow the [release checklist](docs/FINAL_RELEASE_CHECKLIST.md) before creating one. Keep the privileged AI PR reviewer disabled until it has been validated on a disposable test repository and PR.
+**Current release stage:** v6.3.0rc1 is published as an experimental GitHub prerelease ([releases](https://github.com/minhajul-abedin-ai/ConsensusTree-AI/releases)). It is not on PyPI; install from source as shown above. Remaining gates are tracked in the [release checklist](docs/FINAL_RELEASE_CHECKLIST.md). Keep the privileged AI PR reviewer disabled until it has been validated on a disposable test repository and PR.
 
 ## v6.3.0 RC1 — final prerelease hardening
 

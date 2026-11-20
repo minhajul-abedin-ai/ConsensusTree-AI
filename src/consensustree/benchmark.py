@@ -4,6 +4,7 @@ This checks expected phrase coverage, NOT correctness, calibration, or quality.
 For real model quality, use held-out data and independent human adjudication.
 """
 from __future__ import annotations
+
 import json
 from pathlib import Path
 
@@ -22,7 +23,7 @@ def evaluate_suite(suite_file: str | Path, reports_dir: str | Path) -> dict:
             raise ValueError("Report path must be a relative .json inside reports directory")
         try:
             data = json.loads(dest.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as exc:
+        except (OSError, ValueError):
             rows.append({"case": name, "status": "missing or invalid report", "coverage": None})
             continue
         texts = [str(data.get("synthesis") or "")]

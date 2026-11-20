@@ -10,7 +10,6 @@ from collections import defaultdict
 
 from .scanner import Snapshot
 
-
 _SOURCE_START = re.compile(r'^--- FILE: (.+) ---$')
 _SOURCE_END = re.compile(r'^--- END FILE: (.+) ---$')
 _NUMBERED_LINE = re.compile(r'^\s*(\d+) \| ')

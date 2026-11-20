@@ -1,4 +1,11 @@
-## 6.3.0rc1 — final GitHub prerelease hardening (2026-10-29)
+## 6.3.0rc1 — final GitHub prerelease hardening (prepared 2026-10-29, tagged 2026-11-20)
+
+Pre-tag maintenance (2026-11-20):
+
+- CI: dependency review is gated behind an explicit `DEPENDENCY_REVIEW_ENABLED` variable and emits a visible warning when not performed (#3).
+- CI: new Ruff lint job (pyflakes, bugbear, syntax errors, import order), configured in `pyproject.toml`.
+- Fixed late-binding loop variables in the optional browser smoke test and removed unused variables and imports.
+- Ignore local demo and benchmark outputs in Git.
 
 - Trust boundary correction for credentialed PR workflow: trusted default-branch trigger, trusted base checkout assertion, fetch PR head as data only, and explicit administrator opt-in.
 - Reject remote plaintext Ollama endpoints and invalid transport timeouts.

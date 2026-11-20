@@ -3,9 +3,9 @@ import tempfile
 import unittest
 from pathlib import Path
 
+from consensustree.cli import main
 from consensustree.gitdiff import diff_snapshot
 from consensustree.verification import run_unittest
-from consensustree.cli import main
 
 
 class Version2Tests(unittest.TestCase):

@@ -6,10 +6,11 @@ from pathlib import Path
 from unittest.mock import patch
 
 from consensustree.benchmark import evaluate_suite
-from consensustree.privacy import secret_warnings
-from consensustree.plugins import load_client_plugin
-from consensustree.github import pr_comment
 from consensustree.cli import main
+from consensustree.github import pr_comment
+from consensustree.plugins import load_client_plugin
+from consensustree.privacy import secret_warnings
+
 
 class FakeEntry:
     name = "fixture"
@@ -66,15 +67,16 @@ class Version5Tests(unittest.TestCase):
 
 class HardeningTests(unittest.TestCase):
     def test_no_github_redirect_leaks_token(self):
-        from consensustree.github import _NoRedirect
         from urllib.request import Request
+
+        from consensustree.github import _NoRedirect
         req = Request("https://api.github.com/repos/x/y/issues/1/comments", headers={"Authorization":"Bearer token"})
         self.assertIsNone(_NoRedirect().redirect_request(req, None, 302, "Moved", {}, "https://evil.example/"))
 
     def test_imported_evidence_label_and_checks(self):
-        from consensustree.verification import load_evidence
         from consensustree.core import CouncilReport
         from consensustree.report import to_markdown
+        from consensustree.verification import load_evidence
         with tempfile.TemporaryDirectory() as d:
             path=Path(d)/"evidence.json"
             path.write_text(json.dumps({"verified_by":"python-unittest", "passed":True,

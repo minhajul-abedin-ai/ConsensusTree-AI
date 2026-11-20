@@ -40,3 +40,14 @@ jobs:
           python -c "from pathlib import Path; assert Path('examples/interactive_showcase.html').stat().st_size > 0"
       - name: Build distribution
         run: python -m pip wheel --no-deps -w build-wheel .
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Ruff (bug checks and import order, configured in pyproject.toml)
+        run: |
+          python -m pip install "ruff>=0.8,<1"
+          ruff check src tests scripts examples

@@ -6,17 +6,16 @@ local Ollama endpoint configured by the user. No API keys are logged.
 
 from __future__ import annotations
 
+import ipaddress
 import json
+import math
 import os
 import re
-import math
-import ipaddress
-import urllib.parse
 import urllib.error
+import urllib.parse
 import urllib.request
 from dataclasses import dataclass
 from typing import Any
-
 
 DEFAULT_MODELS = {
     "openai": "gpt-4.1-mini",

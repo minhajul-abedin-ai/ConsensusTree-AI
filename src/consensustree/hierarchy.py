@@ -3,15 +3,22 @@
 Agreement is not ground truth. All chairs receive unverified model reports.
 """
 from __future__ import annotations
+
 import datetime as dt
 import time
 from dataclasses import dataclass
 
-from .core import (AgentResult, CouncilReport, QUESTION_INSTRUCTIONS,
-                   REVIEW_INSTRUCTIONS, CHAIR_INSTRUCTIONS, finalize_quality_gate)
+from .core import (
+    CHAIR_INSTRUCTIONS,
+    QUESTION_INSTRUCTIONS,
+    REVIEW_INSTRUCTIONS,
+    AgentResult,
+    CouncilReport,
+    finalize_quality_gate,
+)
+from .privacy import privacy_preflight
 from .providers import LLMClient, ModelSpec, ProviderError, _bounded_completion
 from .scanner import Snapshot
-from .privacy import privacy_preflight
 
 EXPERTS = {
     "ask": [

@@ -18,8 +18,8 @@ from consensustree.hierarchy import HierarchicalCouncil
 from consensustree.metering import MeteredClient
 from consensustree.providers import ModelSpec
 from consensustree.report import to_markdown
-from consensustree.scanner import Snapshot, scan
-from consensustree.studio import create_server, _studio_template
+from consensustree.scanner import scan
+from consensustree.studio import _studio_template, create_server
 
 
 class Reply:

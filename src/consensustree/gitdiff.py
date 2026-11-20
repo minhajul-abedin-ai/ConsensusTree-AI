@@ -4,11 +4,12 @@ Diff files can still contain secrets. Always inspect the paths and obtain
 permission before uploading a change to a hosted language model.
 """
 from __future__ import annotations
-import subprocess
+
 import re
+import subprocess
 from pathlib import Path
 
-from .scanner import Snapshot, EXTENSIONS, _safe_parts, _sensitive
+from .scanner import EXTENSIONS, Snapshot, _safe_parts, _sensitive
 
 
 def _git(root: Path, *args: str) -> bytes:

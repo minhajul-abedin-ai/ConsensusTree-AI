@@ -7,9 +7,9 @@ import time
 from dataclasses import asdict, dataclass, field
 from typing import Callable, Literal
 
+from .privacy import privacy_preflight
 from .providers import DEFAULT_MODELS, LLMClient, ModelSpec, ProviderError, _bounded_completion
 from .scanner import Snapshot, scan
-from .privacy import privacy_preflight
 
 REVIEW_ROLES = [
     ("Architecture", "Review architecture, maintainability, interfaces, and performance risks."),

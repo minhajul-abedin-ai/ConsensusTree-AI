@@ -3,12 +3,14 @@
 The --confirm switch must be supplied; this never runs automatically.
 """
 from __future__ import annotations
+
 import json
 import os
 import re
 import urllib.error
 import urllib.request
 from pathlib import Path
+
 
 class _NoRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self, req, fp, code, msg, headers, newurl):

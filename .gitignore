@@ -17,3 +17,7 @@ reports/
 consensustree-report.md
 consensustree-demo.md
 .DS_Store
+
+# Local outputs from the offline demo and benchmark
+consensustree-benchmark.json
+consensustree-quickstart/

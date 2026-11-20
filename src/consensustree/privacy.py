@@ -1,5 +1,6 @@
 """Small, conservative best-effort secret preflight, NOT a secret scanner."""
 from __future__ import annotations
+
 import re
 
 PATTERNS = {
