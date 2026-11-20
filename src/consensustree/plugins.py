@@ -3,6 +3,7 @@
 Never load plugins for listing: importing third-party Python is code execution.
 """
 from __future__ import annotations
+
 from importlib.metadata import entry_points
 
 GROUP = "consensustree.providers"

@@ -4,8 +4,8 @@ These are INTERNAL tests, not a penetration-test certification.
 """
 from __future__ import annotations
 
-import os
 import io
+import os
 import subprocess
 import tempfile
 import unittest
@@ -14,8 +14,14 @@ from unittest.mock import patch
 
 from consensustree import scanner
 from consensustree.gitdiff import diff_snapshot
-from consensustree.providers import (ProviderError, _extract_openai, _extract_anthropic,
-                                    _extract_gemini, _extract_ollama, _post_json)
+from consensustree.providers import (
+    ProviderError,
+    _extract_anthropic,
+    _extract_gemini,
+    _extract_ollama,
+    _extract_openai,
+    _post_json,
+)
 from consensustree.validation import parse_verdict
 
 

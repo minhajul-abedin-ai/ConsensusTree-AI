@@ -6,9 +6,10 @@ Requires ``pip install playwright`` and locally available Chromium:
 
 The normal Python unittest suite does not depend on Playwright.
 """
-from pathlib import Path
-import sys
 import shutil
+import sys
+from pathlib import Path
+
 from playwright.sync_api import sync_playwright
 
 
@@ -21,8 +22,8 @@ def smoke(path: Path) -> None:
             for width in (360, 390, 414, 768, 1024, 1440):
                 page = browser.new_page(viewport={'width': width, 'height': 860})
                 errors, requests = [], []
-                page.on('pageerror', lambda exc: errors.append(str(exc)))
-                page.on('request', lambda request: requests.append(request.url))
+                page.on('pageerror', lambda exc, errors=errors: errors.append(str(exc)))
+                page.on('request', lambda request, requests=requests: requests.append(request.url))
                 page.set_content(html)
                 assert page.locator('#page-overview').is_visible()
                 assert page.evaluate('document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1')

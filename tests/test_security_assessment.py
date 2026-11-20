@@ -9,8 +9,9 @@ import urllib.request
 from pathlib import Path
 from unittest.mock import patch
 
-from consensustree.studio import create_server, _local_ollama_url, MAX_BODY
 from consensustree.metering import MeteredClient
+from consensustree.studio import MAX_BODY, _local_ollama_url, create_server
+
 
 class HostileModel:
     def complete(self,*args):

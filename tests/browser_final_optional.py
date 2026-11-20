@@ -6,14 +6,15 @@ backend separately. This verifies the actual browser JS/HTML and responsiveness.
 Run: python tests/browser_final_optional.py (Playwright + installed Chromium required)
 """
 from pathlib import Path
-import json
-from playwright.sync_api import sync_playwright
 
+from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 import sys
+
 sys.path.insert(0, str(ROOT/'src'))
 from consensustree.studio import _studio_template
+
 PAGE = _studio_template()
 OUT = ROOT / 'build' / 'browser-previews'
 OUT.mkdir(parents=True, exist_ok=True)

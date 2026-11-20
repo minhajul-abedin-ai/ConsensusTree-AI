@@ -3,7 +3,8 @@ import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-from consensustree.github import upsert_bot_pr_comment, MARKER
+
+from consensustree.github import MARKER, upsert_bot_pr_comment
 
 
 class Response:

@@ -31,6 +31,7 @@ from .privacy import secret_warnings
 from .providers import DEFAULT_MODELS, KEY_VARS, LLMClient, ModelSpec, ProviderError
 from .scanner import Snapshot, scan
 
+
 def _local_ollama_url() -> str:
     """Only allow a local inference endpoint in the browser Studio."""
     url = os.environ.get("OLLAMA_BASE_URL", "http://127.0.0.1:11434").rstrip("/")

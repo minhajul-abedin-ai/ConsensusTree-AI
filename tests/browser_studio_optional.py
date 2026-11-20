@@ -6,6 +6,7 @@ covered by tests/test_studio.py. No live model requests are performed.
 Run: PYTHONPATH=src python tests/browser_studio_optional.py
 """
 from pathlib import Path
+
 from playwright.sync_api import sync_playwright
 
 

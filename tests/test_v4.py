@@ -2,10 +2,12 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from consensustree.dashboard import render_dashboard, write_dashboard
+
+from consensustree.cli import main
+from consensustree.dashboard import render_dashboard
 from consensustree.metering import MeteredClient
 from consensustree.providers import ModelSpec, ProviderError
-from consensustree.cli import main
+
 
 class Fixture:
     def complete(self, spec, system, user):

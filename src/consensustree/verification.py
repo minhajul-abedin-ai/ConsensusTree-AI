@@ -4,6 +4,7 @@ WARNING: Tests execute arbitrary code in the target repository. Only use this
 with repositories you trust; no sandbox is promised.
 """
 from __future__ import annotations
+
 import json
 import subprocess
 import sys

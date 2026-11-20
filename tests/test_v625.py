@@ -7,11 +7,9 @@ from pathlib import Path
 from unittest.mock import patch
 
 from consensustree.automation import parse_pr_event, run_github_pr_review
-from consensustree.context import rank_candidates
-from consensustree.core import Council
 from consensustree.metering import MeteredClient, load_pricing
 from consensustree.production_benchmark import run_production_cases, score_adjudicated
-from consensustree.providers import LLMClient, ModelSpec, provider_usage, ProviderError
+from consensustree.providers import LLMClient, ModelSpec, ProviderError, provider_usage
 from consensustree.scanner import scan
 
 

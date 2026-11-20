@@ -1,15 +1,14 @@
 """v5.3 self-contained offline Decision Studio regression coverage."""
-import json
-import re
 import io
-from contextlib import redirect_stdout
+import json
 import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
 
 from consensustree import __version__
-from consensustree.dashboard import render_dashboard, write_dashboard
 from consensustree.cli import main
+from consensustree.dashboard import render_dashboard, write_dashboard
 
 
 class DecisionStudio53Tests(unittest.TestCase):

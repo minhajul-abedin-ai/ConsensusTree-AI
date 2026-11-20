@@ -1,7 +1,7 @@
 import unittest
-from consensustree.core import CouncilReport
+
 from consensustree.hierarchy import HierarchicalCouncil, adaptive_group_count
-from consensustree.providers import ModelSpec, ProviderError
+from consensustree.providers import ModelSpec
 from consensustree.report import to_markdown
 from consensustree.scanner import Snapshot
 

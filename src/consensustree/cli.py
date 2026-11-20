@@ -3,28 +3,28 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import json
 import os
+import platform
+import shutil
 import sys
+from pathlib import Path
 from typing import Sequence
 
 from . import __version__
+from .benchmark import evaluate_suite
 from .core import AgentResult, Council, CouncilReport
+from .dashboard import write_dashboard
+from .gitdiff import diff_snapshot
+from .github import pr_comment
+from .hierarchy import HierarchicalCouncil, adaptive_group_count
+from .metering import MeteredClient, load_pricing
+from .plugins import available_plugins, load_client_plugin
+from .privacy import privacy_preflight, secret_warnings
 from .providers import DEFAULT_MODELS, KEY_VARS, LLMClient, ModelSpec, ProviderError
 from .report import write_report
 from .scanner import scan
-from .gitdiff import diff_snapshot
-from .verification import run_unittest, write_evidence, load_evidence
-from .hierarchy import HierarchicalCouncil, adaptive_group_count
-from .metering import MeteredClient, load_pricing
-from .dashboard import write_dashboard
-from .plugins import available_plugins, load_client_plugin
-from .privacy import secret_warnings, privacy_preflight
-from .github import pr_comment
-from .benchmark import evaluate_suite
-import json
-import platform
-import shutil
-from pathlib import Path
+from .verification import load_evidence, run_unittest, write_evidence
 
 
 def _add_model_options(parser: argparse.ArgumentParser) -> None:

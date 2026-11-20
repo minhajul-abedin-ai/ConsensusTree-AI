@@ -6,8 +6,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from consensustree.providers import ModelSpec
-from consensustree.validation import (accuracy_metrics, live_probes, parse_verdict,
-                                       run_accuracy)
+from consensustree.validation import accuracy_metrics, live_probes, parse_verdict, run_accuracy
 
 
 class FakeModel:

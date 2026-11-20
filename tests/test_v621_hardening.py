@@ -48,7 +48,6 @@ class HardeningTests(unittest.TestCase):
         (self.root / '.gitignore').write_text('excluded.py\n')
         (self.root / 'excluded.py').write_text('secret=oops\n')
         from consensustree import scanner
-        original = scanner.subprocess.run
         def fail(*args, **kwargs):
             return subprocess.CompletedProcess(args[0], 128, stdout=b'', stderr=b'fake failure')
         with patch.object(scanner.subprocess, 'run', side_effect=fail):
