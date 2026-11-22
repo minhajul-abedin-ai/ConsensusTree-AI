@@ -29,7 +29,8 @@ The shipped `python -m consensustree.production_benchmark run --execute ...` com
 ```bash
 python scripts/production_pairs_manifest.py production-benchmark-results.json paired-records.json
 python scripts/validate_pairs.py paired-records.json
-python -m unittest discover -s scripts -p 'test_*pairs*.py'
+python -m unittest discover -s scripts -p 'test_production_pairs_manifest.py' -v
+python -m unittest discover -s scripts -p 'test_validate_paired_evaluation.py' -v
 ```
 
-Both scripts require only Python's standard library. The adapter rejects missing outputs, duplicate case identifiers, malformed hashes, and wrong benchmark types. It copies the **same recorded source digest** into both arms, because the production benchmark stores one source digest per case. Therefore this adapter cannot independently prove that both models received identical prompts or verify the digest against source bytes; it only provides a structural compatibility check. Preserve the original benchmark JSON and input case revision for independent audit. No synthetic fixture is evidence of real provider performance.
+Both scripts require only Python's standard library. Run both test commands: the adapter test filename and paired-validator test filename do not share the `test_*pairs*.py` glob, so that glob silently skips validator tests. The adapter rejects missing outputs, duplicate case identifiers, malformed hashes, and wrong benchmark types. It copies the **same recorded source digest** into both arms, because the production benchmark stores one source digest per case. Therefore this adapter cannot independently prove that both models received identical prompts or verify the digest against source bytes; it only provides a structural compatibility check. Preserve the original benchmark JSON and input case revision for independent audit. No synthetic fixture is evidence of real provider performance.
