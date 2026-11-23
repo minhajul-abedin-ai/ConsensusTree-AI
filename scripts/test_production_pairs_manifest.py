@@ -30,6 +30,13 @@ class AdapterTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "missing baseline or council output"):
                     module.convert(sample(**{arm: "  \n  "}))
 
+    def test_empty_structured_response_arm_fails(self):
+        for arm in ("baseline", "council"):
+            for empty in ({}, []):
+                with self.subTest(arm=arm, empty_type=type(empty).__name__):
+                    with self.assertRaisesRegex(ValueError, "missing baseline or council output"):
+                        module.convert(sample(**{arm: empty}))
+
     def test_invalid_digest_fails(self):
         with self.assertRaisesRegex(ValueError, "invalid source_sha256"):
             module.convert(sample(source_sha256="not-a-hash"))
