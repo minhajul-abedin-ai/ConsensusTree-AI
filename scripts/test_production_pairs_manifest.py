@@ -1,6 +1,6 @@
 import importlib.util
-from pathlib import Path
 import unittest
+from pathlib import Path
 
 spec = importlib.util.spec_from_file_location("production_pairs_manifest", Path(__file__).with_name("production_pairs_manifest.py"))
 module = importlib.util.module_from_spec(spec)
