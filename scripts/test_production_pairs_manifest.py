@@ -9,7 +9,8 @@ spec.loader.exec_module(module)
 
 def sample(**overrides):
     case = {"id": "synthetic-1", "source_sha256": "a" * 64,
-            "baseline": "fictional response", "council": {"execution": "synthetic"}}
+            "baseline": "fictional response", "council": {"execution": "synthetic"},
+            "completion": "complete"}
     case.update(overrides)
     return {"benchmark_type": "production_Council_vs_single_model", "cases": [case]}
 
@@ -36,6 +37,12 @@ class AdapterTests(unittest.TestCase):
                 with self.subTest(arm=arm, empty_type=type(empty).__name__):
                     with self.assertRaisesRegex(ValueError, "missing baseline or council output"):
                         module.convert(sample(**{arm: empty}))
+
+    def test_incomplete_council_rejected(self):
+        for status in ("partial", None, "failed"):
+            with self.subTest(status=status):
+                with self.assertRaisesRegex(ValueError, "council execution not complete"):
+                    module.convert(sample(completion=status))
 
     def test_invalid_digest_fails(self):
         with self.assertRaisesRegex(ValueError, "invalid source_sha256"):
