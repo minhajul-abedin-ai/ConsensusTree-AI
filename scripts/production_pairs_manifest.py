@@ -26,7 +26,13 @@ def convert(result):
             raise ValueError(f"case {index}: missing or duplicate id")
         if not isinstance(digest, str) or not HEX.fullmatch(digest):
             raise ValueError(f"case {index}: invalid source_sha256")
-        if "baseline" not in case or "council" not in case or case["baseline"] is None or case["council"] is None or (isinstance(case["baseline"], str) and not case["baseline"].strip()) or (isinstance(case["council"], str) and not case["council"].strip()) or (isinstance(case["baseline"], (list, dict)) and not case["baseline"]) or (isinstance(case["council"], (list, dict)) and not case["council"]):
+        if any(
+            arm not in case
+            or not isinstance(case[arm], (str, list, dict))
+            or (isinstance(case[arm], str) and not case[arm].strip())
+            or (isinstance(case[arm], (list, dict)) and not case[arm])
+            for arm in ("baseline", "council")
+        ):
             raise ValueError(f"case {index}: missing baseline or council output")
         if case.get("completion") != "complete":
             raise ValueError(f"case {index}: council execution not complete")
