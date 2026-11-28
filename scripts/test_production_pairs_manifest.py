@@ -44,6 +44,26 @@ class AdapterTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, "council execution not complete"):
                     module.convert(sample(completion=status))
 
+    def test_scalar_response_arm_fails(self):
+        for arm in ("baseline", "council"):
+            for invalid in (False, True, 0, 1, 1.5):
+                with self.subTest(arm=arm, invalid=invalid):
+                    with self.assertRaisesRegex(ValueError, "missing baseline or council output"):
+                        module.convert(sample(**{arm: invalid}))
+
+    def test_multiple_cases_preserve_pairing_order(self):
+        data = sample()
+        second = dict(data["cases"][0], id="synthetic-2", source_sha256="b" * 64)
+        data["cases"].append(second)
+        rows = module.convert(data)["records"]
+        self.assertEqual(
+            [("synthetic-1", "baseline", "a" * 64),
+             ("synthetic-1", "council", "a" * 64),
+             ("synthetic-2", "baseline", "b" * 64),
+             ("synthetic-2", "council", "b" * 64)],
+            [(row["case_id"], row["arm"], row["case_sha256"]) for row in rows],
+        )
+
     def test_invalid_digest_fails(self):
         with self.assertRaisesRegex(ValueError, "invalid source_sha256"):
             module.convert(sample(source_sha256="not-a-hash"))
